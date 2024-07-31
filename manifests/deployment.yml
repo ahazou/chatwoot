@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: hermeschatwoot 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hermeschatwoot
+  template:
+    metadata:
+      labels:
+        app: hermeschatwoot 
+    spec:
+      containers:
+        - name: hermeschatwoot 
+          image: hermes.azurecr.io/hermeschatwoot
+          ports:
+          - containerPort: 3000
