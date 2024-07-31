@@ -14,7 +14,7 @@ variables:
   dockerRegistryServiceConnection: '2a0d3c58-e159-4f86-b38a-a6cfd9bf63af'
   imageRepository: 'chatwoot'
   containerRegistry: './hermes.azurecr.io'
-  dockerfilePath: docker/Dockerfile'
+  dockerfilePath: Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'hermesaf44-auth'
 
