@@ -12,9 +12,9 @@ variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '2a0d3c58-e159-4f86-b38a-a6cfd9bf63af'
-  imageRepository: 'chatwoot'
+  imageRepository: 'chatwoot-rails'
   containerRegistry: './hermes.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: '**/docker/dockerfiles/rails.Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'hermesaf44-auth'
 

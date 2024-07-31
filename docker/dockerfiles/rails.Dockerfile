@@ -1,4 +1,4 @@
-FROM chatwoot:development
+FROM hermes.azurecr.io/chatwoot:6
 
 RUN chmod +x docker/entrypoints/rails.sh
 
