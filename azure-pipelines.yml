@@ -9,51 +9,48 @@ resources:
 - repo: self
 
 variables:
-
-  # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '2a0d3c58-e159-4f86-b38a-a6cfd9bf63af'
   imageRepository: 'chatwoot-rails'
-  containerRegistry: './hermes.azurecr.io'
-  dockerfilePath: '**/docker/dockerfiles/rails.Dockerfile'
+  containerRegistry: 'hermes.azurecr.io'
+  dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'hermesaf44-auth'
-
-  # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
-
 stages:
-- stage: Build
-  displayName: Build stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
-
-    - upload: manifests
-      artifact: manifests
-
-# - stage: Deploy
-#   displayName: Deploy stage
-#   dependsOn: Build
-
+# - stage: Build
+#   displayName: Build stage
 #   jobs:
-#   - deployment: Deploy
-#     displayName: Deploy
+#   - job: Build
+#     displayName: Build
 #     pool:
 #       vmImage: $(vmImageName)
-#     environment: 'ahazouchatwoot.chatwoot'
+#     steps:
+#     - task: Docker@2
+#       displayName: Build and push an image to container registry
+#       inputs:
+#         command: buildAndPush
+#         repository: $(imageRepository)
+#         dockerfile: $(dockerfilePath)
+#         containerRegistry: $(dockerRegistryServiceConnection)
+#         tags: |
+#           $(tag)
+
+#     - upload: manifests
+#       artifact: manifests
+
+- stage: Deploy
+  displayName: Deploy stage
+  # dependsOn: Build
+  script: |
+    ls -la
+
+  # jobs:
+  # - deployment: Deploy
+  #   displayName: Deploy
+  #   pool:
+  #     vmImage: $(vmImageName)
+  #   environment: 'ahazouchatwoot.chatwoot'
 #     strategy:
 #       runOnce:
 #         deploy:
