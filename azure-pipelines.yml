@@ -17,7 +17,7 @@ variables:
   imagePullSecret: 'hermesaf44-auth'
   vmImageName: 'ubuntu-latest'
 
-stages:
+steps:
 # - stage: Build
 #   displayName: Build stage
 #   jobs:
@@ -39,8 +39,8 @@ stages:
 #     - upload: manifests
 #       artifact: manifests
 
-- stage: Deploy
-  displayName: Deploy stage
+# - stage: Deploy
+  # displayName: Deploy stage
   # dependsOn: Build
   script: |
     ls -la
