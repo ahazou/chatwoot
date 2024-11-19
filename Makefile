@@ -54,7 +54,7 @@ docker:
 
 
 build-and-push: ## build and push docker
-	sudo docker build . -f Dockerfile -t hermes.azurecr.io/chatwoot-v3150 --build-arg AKS=$(AKS) && \
+	sudo docker build . -f web.Dockerfile -t hermes.azurecr.io/chatwoot-v3150 --build-arg AKS=$(AKS) && \
 	sudo docker push hermes.azurecr.io/chatwoot-v3150
 
 deploy: ## deploy to azure container app
