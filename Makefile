@@ -52,4 +52,27 @@ debug_worker:
 docker: 
 	docker build -t $(APP_NAME) -f ./docker/Dockerfile .
 
+
+build-and-push: ## build and push docker
+	sudo docker build . -f Dockerfile -t hermes.azurecr.io/chatwoot-v3150 --build-arg AKS=$(AKS) && \
+	sudo docker push hermes.azurecr.io/chatwoot-v3150
+
+deploy: ## deploy to azure container app
+	@az containerapp update \
+  --name chatwoot-v3150 \
+  --resource-group hermes-group \
+  --image hermes.azurecr.io/chatwoot-v3150:latest \
+  --set-env-vars VERSION="$(VERSION)"
+
+build-and-push-worker: ## build and push docker
+	sudo docker build . -f worker.Dockerfile -t hermes.azurecr.io/chatwoot-v3150-worker --build-arg AKS=$(AKS) && \
+	sudo docker push hermes.azurecr.io/chatwoot-v3150-worker
+
+deploy-worker: ## deploy to azure container app
+	@az containerapp update \
+  --name chatwoot-v3150-worker \
+  --resource-group hermes-group \
+  --image hermes.azurecr.io/chatwoot-v3150:latest \
+  --set-env-vars VERSION="$(VERSION)"
+
 .PHONY: setup db_create db_migrate db_seed db_reset db console server burn docker run force_run debug debug_worker
