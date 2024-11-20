@@ -59,7 +59,7 @@ RUN if [ "$RAILS_ENV" = "production" ]; then \
   else bundle install -j 4 -r 3; \
   fi
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json .env pnpm-lock.yaml ./
 RUN pnpm i
 
 COPY . /app
@@ -127,6 +127,7 @@ COPY --from=pre-builder /app /app
 
 # Copy .git_sha file from pre-builder stage
 COPY --from=pre-builder /app/.git_sha /app/.git_sha
+COPY --from=pre-builder /app/.env /app/.env
 
 WORKDIR /app
 

@@ -72,7 +72,16 @@ deploy-worker: ## deploy to azure container app
 	@az containerapp update \
   --name chatwoot-v3150-worker \
   --resource-group hermes-group \
-  --image hermes.azurecr.io/chatwoot-v3150:latest \
+  --image hermes.azurecr.io/chatwoot-v3150-worker:latest \
   --set-env-vars VERSION="$(VERSION)"
+
+logs-worker: ## logs from azure
+	@az containerapp logs show --name chatwoot-v3150-worker --resource-group hermes-group --follow --format text --tail 100 --type console
+
+logs: ## logs from azure
+	@az containerapp logs show --name chatwoot-v3150 --resource-group hermes-group --follow --format text --tail 100 --type console
+
+
+
 
 .PHONY: setup db_create db_migrate db_seed db_reset db console server burn docker run force_run debug debug_worker
